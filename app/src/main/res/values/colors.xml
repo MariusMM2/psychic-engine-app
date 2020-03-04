@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!--    BudgetItem -->
+    <color name="budget_item_field_bg">#54DDDDDD</color>
+    <color name="budget_item_field_bg_placeholder">#dddddd</color>
 </resources>

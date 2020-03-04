@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    tools:viewBindingIgnore="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp">
+
+        <View
+            android:id="@+id/frame_value"
+            android:layout_width="@dimen/budget_item_fieldvalue_width"
+            android:layout_height="@dimen/budget_item_fieldvalue_height"
+            android:background="@drawable/budget_item_bg_value_placeholder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/budget_item_field_height"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/budget_item_bg_placeholder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/frame_value"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/date"
+            android:layout_width="@dimen/budget_item_fielddate_width"
+            android:layout_height="@dimen/budget_item_field_height"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/budget_item_bg_placeholder"
+            app:layout_constraintEnd_toEndOf="@+id/frame_value"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frame_value" />
+
+        <View
+            android:id="@+id/category"
+            android:layout_width="@dimen/budget_item_fieldcategory_width"
+            android:layout_height="@dimen/budget_item_field_height"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/budget_item_bg_placeholder"
+            android:minWidth="@dimen/budget_item_fieldcategory_width"
+            app:layout_constraintStart_toStartOf="@+id/description"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

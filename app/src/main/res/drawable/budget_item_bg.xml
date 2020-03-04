@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="@color/budget_item_field_bg"/>
+
+    <corners android:radius="@dimen/budget_item_field_corner_radius" />
+</shape>

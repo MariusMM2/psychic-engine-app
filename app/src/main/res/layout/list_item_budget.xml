@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="obj"
+            type="com.marius.spendings.models.BudgetItem" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp">
+
+            <FrameLayout
+                android:id="@+id/frame_value"
+                android:layout_width="@dimen/budget_item_fieldvalue_width"
+                android:layout_height="@dimen/budget_item_fieldvalue_height"
+                android:background="@drawable/budget_item_bg_value"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingStart="@dimen/budget_item_field_padding"
+                    android:paddingEnd="@dimen/budget_item_field_padding"
+                    android:text="@{String.format(&quot;%.2f&quot;, (float)(obj.price.value * obj.quantity)/100f)}"
+                    tools:text="0.00" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/budget_item_field_height"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/budget_item_bg"
+                android:paddingStart="@dimen/budget_item_field_padding"
+                android:paddingEnd="@dimen/budget_item_field_padding"
+                android:text="@{obj.description}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/frame_value"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="lorem ipsum dolor sit" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="@dimen/budget_item_fielddate_width"
+                android:layout_height="@dimen/budget_item_field_height"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/budget_item_bg"
+                android:paddingStart="@dimen/budget_item_field_padding"
+                android:paddingEnd="@dimen/budget_item_field_padding"
+                android:text="@{Integer.toString(obj.date.toDate().date) + '/' + Integer.toString(obj.date.toDate().month + 1)}"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@+id/frame_value"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frame_value"
+                tools:text="11/01" />
+
+            <TextView
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/budget_item_field_height"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/budget_item_bg"
+                android:minWidth="@dimen/budget_item_fieldcategory_width"
+                android:paddingStart="@dimen/budget_item_field_padding"
+                android:paddingEnd="@dimen/budget_item_field_padding"
+                android:text="@{obj.category}"
+                android:textAlignment="center"
+                android:visibility="@{!obj.category.isEmpty() ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintStart_toStartOf="@+id/description"
+                app:layout_constraintTop_toBottomOf="@+id/description"
+                tools:text="Category" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

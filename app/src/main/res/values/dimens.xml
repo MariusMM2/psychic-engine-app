@@ -1,0 +1,13 @@
+<resources>
+    <dimen name="appbar_padding">16dp</dimen>
+
+    <!--    BudgetItem -->
+    <dimen name="budget_item_field_height">20dp</dimen>
+    <dimen name="budget_item_field_corner_radius">10dp</dimen>
+    <dimen name="budget_item_field_padding">10dp</dimen>
+    <dimen name="budget_item_fieldvalue_width">80dp</dimen>
+    <dimen name="budget_item_fieldvalue_height">40dp</dimen>
+    <dimen name="budget_item_fieldvalue_corner_radius">20dp</dimen>
+    <dimen name="budget_item_fieldcategory_width">80dp</dimen>
+    <dimen name="budget_item_fielddate_width">60dp</dimen>
+</resources>

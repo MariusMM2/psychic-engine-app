@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="com.marius.spendings.viewmodels.HomeTabViewModel" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:refreshing="@{viewmodel.isLoading &amp;&amp; viewmodel.budgetItems.size != 0}"
+        app:onRefreshListener="@{() -> viewmodel.loadBudgetItems()}">
+
+        <FrameLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/budget_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0"
+                android:visibility="invisible"
+                app:animateVisibilityChange="@{viewmodel.budgetItems.size != 0}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="15"
+                tools:listitem="@layout/list_item_budget" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/budget_list_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:animateVisibilityChange="@{viewmodel.budgetItems.size == 0}"
+                app:shimmer_auto_start="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/list_item_budget_placeholder" />
+
+                    <include layout="@layout/list_item_budget_placeholder" />
+
+                    <include layout="@layout/list_item_budget_placeholder" />
+
+                    <include layout="@layout/list_item_budget_placeholder" />
+
+                    <include layout="@layout/list_item_budget_placeholder" />
+
+                    <include layout="@layout/list_item_budget_placeholder" />
+
+                    <include layout="@layout/list_item_budget_placeholder" />
+
+                    <include layout="@layout/list_item_budget_placeholder" />
+
+                    <include layout="@layout/list_item_budget_placeholder" />
+
+                    <include layout="@layout/list_item_budget_placeholder" />
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </FrameLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>
