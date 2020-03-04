@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DiffUtil
 import com.marius.spendings.databinding.FragmentHomeBinding
-import com.marius.spendings.models.BudgetItem
 import com.marius.spendings.ui.home.BudgetItemAdapter
 import com.marius.spendings.viewmodels.HomeTabViewModel
 
@@ -27,7 +25,12 @@ class HomeTabFragment : Fragment() {
     private val binding
         get() = _binding!!
 
-    private var budgetItemsAdapter: BudgetItemAdapter? = null
+    private var budgetItemsAdapter: BudgetItemAdapter?
+        get() = binding.budgetList.adapter as BudgetItemAdapter?
+        set(value) {
+            if (binding.budgetList.adapter == null)
+                binding.budgetList.adapter = value
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,46 +43,13 @@ class HomeTabFragment : Fragment() {
         binding.viewmodel = homeTabViewModel
         binding.executePendingBindings()
 
-        homeTabViewModel.budgetItems.observe(viewLifecycleOwner, Observer<List<BudgetItem>> { budgetItems ->
+        homeTabViewModel.budgetItems.observe(viewLifecycleOwner, Observer { budgetItems ->
             Log.d(TAG, budgetItems.size.toString())
             if (budgetItemsAdapter == null) {
                 budgetItemsAdapter = BudgetItemAdapter()
-                budgetItemsAdapter?.budgetItems = budgetItems
-                budgetItemsAdapter?.notifyDataSetChanged()
-
-                binding.budgetList.adapter = budgetItemsAdapter
-            } else {
-                val result: DiffUtil.DiffResult =
-                    DiffUtil.calculateDiff(object : DiffUtil.Callback() {
-                        override fun getOldListSize(): Int {
-                            return budgetItemsAdapter!!.budgetItems.size
-                        }
-
-                        override fun getNewListSize(): Int {
-                            return budgetItems.size
-                        }
-
-                        override fun areItemsTheSame(
-                            oldItemPosition: Int,
-                            newItemPosition: Int
-                        ): Boolean {
-                            return budgetItemsAdapter!!.budgetItems[oldItemPosition].id ==
-                                    budgetItems[newItemPosition].id
-                        }
-
-                        override fun areContentsTheSame(
-                            oldItemPosition: Int,
-                            newItemPosition: Int
-                        ): Boolean {
-                            val oldItem = budgetItemsAdapter!!.budgetItems[oldItemPosition]
-                            val newItem = budgetItems[newItemPosition]
-                            return oldItem == newItem
-                        }
-                    })
-
-                budgetItemsAdapter!!.budgetItems = budgetItems
-                result.dispatchUpdatesTo(budgetItemsAdapter!!)
             }
+
+            budgetItemsAdapter?.budgetItems = budgetItems
         })
 
         return binding.root
