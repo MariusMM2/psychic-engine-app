@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:refreshing="@{viewmodel.isLoading &amp;&amp; viewmodel.budgetItems.size != 0}"
-        app:onRefreshListener="@{() -> viewmodel.loadBudgetItems()}">
+        app:onRefreshListener="@{viewmodel::reloadBudgetItems}">
 
         <FrameLayout
             android:id="@+id/constraintLayout"

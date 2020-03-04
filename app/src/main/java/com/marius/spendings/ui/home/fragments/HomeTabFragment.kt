@@ -29,11 +29,6 @@ class HomeTabFragment : Fragment() {
 
     private var budgetItemsAdapter: BudgetItemAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        homeTabViewModel.loadBudgetItems()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
