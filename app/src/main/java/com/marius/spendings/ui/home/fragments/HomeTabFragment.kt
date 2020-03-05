@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.marius.spendings.database.UserRepository
 import com.marius.spendings.databinding.FragmentHomeBinding
+import com.marius.spendings.models.User
 import com.marius.spendings.ui.home.BudgetItemAdapter
 import com.marius.spendings.viewmodels.HomeTabViewModel
 
@@ -31,6 +33,11 @@ class HomeTabFragment : Fragment() {
             if (binding.budgetList.adapter == null)
                 binding.budgetList.adapter = value
         }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        homeTabViewModel.setUser(arguments?.getParcelable(ARG_CURRENT_USER) ?: User("", "", ""))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,10 +68,21 @@ class HomeTabFragment : Fragment() {
     }
 
     companion object {
+        /**
+         * The fragment argument representing the logged in user of the application.
+         */
+        private const val ARG_CURRENT_USER = "current_user"
 
+        /**
+         * Returns a new instance of this fragment.
+         */
         @JvmStatic
         fun newInstance(): HomeTabFragment {
-            return HomeTabFragment()
+            return HomeTabFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_CURRENT_USER, UserRepository.currentUser)
+                }
+            }
         }
     }
 }

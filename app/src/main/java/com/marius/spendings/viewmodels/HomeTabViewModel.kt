@@ -1,17 +1,19 @@
 package com.marius.spendings.viewmodels
 
 import androidx.lifecycle.*
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObjects
-import com.google.firebase.ktx.Firebase
+import com.marius.spendings.database.BudgetItemRepository
+import com.marius.spendings.database.UserRepository
 import com.marius.spendings.models.BudgetItem
-import com.marius.spendings.ui.home.activities.USER_ID
+import com.marius.spendings.models.User
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 
 class HomeTabViewModel : ViewModel() {
-    @Suppress("PrivatePropertyName")
+
+    @Suppress("PrivatePropertyName", "unused")
     private val TAG = "TabPageViewModel"
+
+    private val _currentUser = MutableLiveData(UserRepository.currentUser)
+    private val currentUser: LiveData<User?> = _currentUser
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -32,23 +34,21 @@ class HomeTabViewModel : ViewModel() {
     private suspend fun loadBudgetItems(): List<BudgetItem> {
         _isLoading.value = true
 
-        val userDocument = Firebase.firestore.collection("users").document(USER_ID)
+        val result: ArrayList<BudgetItem> = ArrayList()
 
-        val expenses = userDocument.collection("expenses").get().await().toObjects<BudgetItem>()
-        val income = userDocument.collection("income").get().await().toObjects<BudgetItem>()
-
-//        val retrievedItems = ArrayList<BudgetItem>()
-        val retrievedItems = _budgetItems.value ?: ArrayList()
-
-        return mutableListOf<BudgetItem>().apply {
-            for (item in retrievedItems) {
-                add(item.copy())
+        currentUser.value!!.let { user ->
+            result.apply {
+                addAll(BudgetItemRepository.from(user).getAll())
+                sortByDescending(BudgetItem::date)
             }
-            addAll(expenses)
-            addAll(income)
-            sortByDescending(BudgetItem::date)
+        }
 
+        return result.also {
             _isLoading.value = false
         }
+    }
+
+    fun setUser(currentUser: User) {
+        _currentUser.value = currentUser
     }
 }
