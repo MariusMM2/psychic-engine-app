@@ -37,10 +37,7 @@ class HomeTabViewModel : ViewModel() {
         val result: ArrayList<BudgetItem> = ArrayList()
 
         currentUser.value!!.let { user ->
-            result.apply {
-                addAll(BudgetItemRepository.from(user).getAll())
-                sortByDescending(BudgetItem::date)
-            }
+            result.addAll(BudgetItemRepository.from(user).getLatest(5))
         }
 
         return result.also {
