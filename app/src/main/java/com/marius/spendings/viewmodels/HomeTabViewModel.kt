@@ -2,7 +2,6 @@ package com.marius.spendings.viewmodels
 
 import androidx.lifecycle.*
 import com.marius.spendings.database.BudgetItemRepository
-import com.marius.spendings.database.UserRepository
 import com.marius.spendings.models.BudgetItem
 import com.marius.spendings.models.User
 import kotlinx.coroutines.launch
@@ -12,7 +11,7 @@ class HomeTabViewModel : ViewModel() {
     @Suppress("PrivatePropertyName", "unused")
     private val TAG = "TabPageViewModel"
 
-    private val _currentUser = MutableLiveData(UserRepository.currentUser)
+    private val _currentUser = MutableLiveData<User>()
     private val currentUser: LiveData<User?> = _currentUser
 
     private val _isLoading = MutableLiveData<Boolean>()
