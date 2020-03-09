@@ -15,58 +15,73 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:refreshing="@{viewmodel.isLoading &amp;&amp; viewmodel.budgetItems.size != 0}"
-        app:onRefreshListener="@{viewmodel::reloadBudgetItems}">
+        app:onRefreshListener="@{viewmodel::reloadBudgetItems}"
+        app:refreshing="@{viewmodel.isLoading &amp;&amp; viewmodel.budgetItems.size != 0}">
 
         <FrameLayout
-            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/budget_list"
+            <FrameLayout
+                android:id="@+id/budget_list_frame_placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha="0"
-                android:visibility="invisible"
-                app:animateVisibilityChange="@{viewmodel.budgetItems.size != 0}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="15"
-                tools:listitem="@layout/list_item_budget" />
+                android:animateLayoutChanges="true">
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/budget_list_placeholder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:animateVisibilityChange="@{viewmodel.budgetItems.size == 0}"
-                app:shimmer_auto_start="true">
-
-                <LinearLayout
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/budget_list_placeholder"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:visibility="@{viewmodel.budgetItems.size() == 0 ? View.VISIBLE : View.INVISIBLE}"
+                    app:shimmer_auto_start="true">
 
-                    <include layout="@layout/list_item_budget_placeholder" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="-16dp"
+                        android:orientation="vertical">
 
-                    <include layout="@layout/list_item_budget_placeholder" />
+                        <include layout="@layout/list_item_budget_placeholder" />
 
-                    <include layout="@layout/list_item_budget_placeholder" />
+                        <include layout="@layout/list_item_budget_placeholder" />
 
-                    <include layout="@layout/list_item_budget_placeholder" />
+                        <include layout="@layout/list_item_budget_placeholder" />
 
-                    <include layout="@layout/list_item_budget_placeholder" />
+                        <include layout="@layout/list_item_budget_placeholder" />
 
-                    <include layout="@layout/list_item_budget_placeholder" />
+                        <include layout="@layout/list_item_budget_placeholder" />
 
-                    <include layout="@layout/list_item_budget_placeholder" />
+                        <include layout="@layout/list_item_budget_placeholder" />
 
-                    <include layout="@layout/list_item_budget_placeholder" />
+                        <include layout="@layout/list_item_budget_placeholder" />
 
-                    <include layout="@layout/list_item_budget_placeholder" />
+                        <include layout="@layout/list_item_budget_placeholder" />
 
-                    <include layout="@layout/list_item_budget_placeholder" />
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
+                        <include layout="@layout/list_item_budget_placeholder" />
+
+                        <include layout="@layout/list_item_budget_placeholder" />
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/budget_list_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
+                tools:visibility="invisible">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/budget_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{viewmodel.budgetItems.size() == 0 ? View.INVISIBLE : View.VISIBLE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="15"
+                    tools:listitem="@layout/list_item_budget" />
+            </FrameLayout>
+
         </FrameLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

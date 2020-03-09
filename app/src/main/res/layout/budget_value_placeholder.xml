@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data />
+
+    <View xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/frame_value"
+        android:layout_width="@dimen/budget_item_fieldvalue_width"
+        android:layout_height="@dimen/budget_item_fieldvalue_height"
+        android:background="@drawable/budget_item_bg_value_placeholder"
+        tools:showIn="@layout/list_item_budget_placeholder" />
+</layout>

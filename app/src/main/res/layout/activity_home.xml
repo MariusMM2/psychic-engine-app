@@ -1,37 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.activities.HomeActivity"
-    tools:keep="@layout/activity_home">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <data>
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:minHeight="?actionBarSize"
-            android:padding="@dimen/appbar_padding"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+        <import type="android.view.View" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary" />
-    </com.google.android.material.appbar.AppBarLayout>
+        <variable
+            name="viewmodel"
+            type="com.marius.spendings.viewmodels.HomeActivityViewModel" />
+    </data>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        tools:context=".ui.home.activities.HomeActivity"
+        tools:keep="@layout/activity_home">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="?actionBarSize"
+                android:padding="@dimen/appbar_padding"
+                android:text="@string/app_name"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+
+            <FrameLayout
+                android:id="@+id/graph"
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
+
+                <FrameLayout
+                    android:layout_width="@dimen/budget_item_fieldvalue_width"
+                    android:layout_height="@dimen/budget_item_fieldvalue_height"
+                    android:layout_gravity="center_horizontal"
+                    tools:ignore="UselessParent">
+
+                    <FrameLayout
+                        android:id="@+id/balance_total_frame_placeholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:animateLayoutChanges="true">
+
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/balance_placeholder"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="@{viewmodel.isLoading ? View.VISIBLE : View.INVISIBLE}"
+                            app:shimmer_auto_start="true"
+                            tools:visibility="gone">
+
+                            <include layout="@layout/budget_value_placeholder" />
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/balance_total_frame_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:animateLayoutChanges="true">
+
+                        <View
+                            android:id="@+id/balance_total_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/budget_item_bg_value"
+                            android:visibility="@{viewmodel.isLoading ? View.INVISIBLE : View.VISIBLE}" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/balance_total_frame"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:animateLayoutChanges="true">
+
+                        <TextView
+                            android:id="@+id/balance_total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity='center'
+                            android:paddingStart="@dimen/budget_item_field_padding"
+                            android:paddingEnd="@dimen/budget_item_field_padding"
+                            android:text='@{String.format("%.2f", (float)viewmodel.price.value / 100)}'
+                            tools:text="0.00" />
+                    </FrameLayout>
+                </FrameLayout>
+            </FrameLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -13,13 +13,9 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp">
 
-        <View
-            android:id="@+id/frame_value"
-            android:layout_width="@dimen/budget_item_fieldvalue_width"
-            android:layout_height="@dimen/budget_item_fieldvalue_height"
-            android:background="@drawable/budget_item_bg_value_placeholder"
+        <include layout="@layout/budget_value_placeholder"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <View
             android:id="@+id/description"

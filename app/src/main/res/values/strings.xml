@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Spendings</string>
+
+    <!-- Tab Titles -->
+    <string name="tab_name_overview">Overview</string>
+    <string name="tab_name_recent">Recent</string>
+    <string name="tab_name_monthly">Monthly</string>
+    <string name="tab_name_yearly">Yearly</string>
 </resources>

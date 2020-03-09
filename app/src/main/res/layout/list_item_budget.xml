@@ -38,7 +38,7 @@
                     android:layout_gravity="center"
                     android:paddingStart="@dimen/budget_item_field_padding"
                     android:paddingEnd="@dimen/budget_item_field_padding"
-                    android:text="@{String.format(&quot;%.2f&quot;, (float)(obj.price.value * obj.quantity)/100f)}"
+                    android:text='@{String.format("%.2f", (float)(obj.price.value * obj.quantity)/100f)}'
                     tools:text="0.00" />
             </FrameLayout>
 

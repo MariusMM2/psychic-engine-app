@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="tab_titles">
-        <item>Tab 1</item>
-        <item>Tab 2</item>
+        <item>@string/tab_name_overview</item>
+        <item>@string/tab_name_recent</item>
+        <item>@string/tab_name_monthly</item>
+        <item>@string/tab_name_yearly</item>
     </string-array>
 </resources>

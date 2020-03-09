@@ -11,6 +11,11 @@ import com.marius.spendings.BR
  */
 class ItemViewHolder(private val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
+    /**
+     * Adds an object to a binding
+     *
+     * @param obj The object to add
+     */
     fun bind(obj: Any) {
         binding.setVariable(BR.obj, obj)
         binding.executePendingBindings()

@@ -17,6 +17,8 @@ fun animateVisibilityChange(view: View, show: Boolean) {
     val oldVisibility = view.visibility
     val visibility = if (show) View.VISIBLE else View.INVISIBLE
 
+    view.animate().cancel()
+
     if (oldVisibility != visibility) {
         view.animate().apply {
             alpha(if (show) 1f else 0f)
@@ -24,7 +26,9 @@ fun animateVisibilityChange(view: View, show: Boolean) {
             interpolator = LinearInterpolator()
             setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationStart(animation: Animator?) {
-                    if(view.visibility != View.VISIBLE) view.visibility = View.VISIBLE
+                    if (view.visibility != View.VISIBLE) {
+                        view.visibility = View.VISIBLE
+                    }
                 }
 
                 override fun onAnimationEnd(animation: Animator?, isReverse: Boolean) {

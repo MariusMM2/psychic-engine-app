@@ -6,8 +6,13 @@ import com.marius.spendings.models.BudgetItem
 import com.marius.spendings.ui.common.SingleLayoutAdapter
 import com.marius.spendings.utils.diffResultOf
 
+/**
+ * A [SingleLayoutAdapter] that adapts [BudgetItem]s to a RecyclerView
+ *
+ */
 class BudgetItemAdapter : SingleLayoutAdapter(R.layout.list_item_budget) {
 
+    // List used by the adapter
     var budgetItems: List<BudgetItem> = ArrayList()
         set(value) {
             if (field.isEmpty()) {
