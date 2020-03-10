@@ -1,6 +1,5 @@
 package com.marius.spendings.ui.home.activities
 
-import android.animation.LayoutTransition
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -43,11 +42,6 @@ class HomeActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
             lifecycleOwner = this@HomeActivity
             viewmodel = homeActivityViewModel
             executePendingBindings()
-
-            // Enable transition animation for wrapping FrameLayouts
-            balanceTotalFramePlaceholder.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-            balanceTotalFrameBg.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-            balanceTotalFrame.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 
             viewPager.addOnPageChangeListener(this@HomeActivity)
             viewPager.adapter = SectionsPagerAdapter(this@HomeActivity, supportFragmentManager)

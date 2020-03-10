@@ -26,7 +26,7 @@
                 android:id="@+id/budget_list_frame_placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:animateLayoutChanges="true">
+                app:animateLayoutChanges="@{true}">
 
                 <com.facebook.shimmer.ShimmerFrameLayout
                     android:id="@+id/budget_list_placeholder"
@@ -69,7 +69,7 @@
                 android:id="@+id/budget_list_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:animateLayoutChanges="true"
+                app:animateLayoutChanges="@{true}"
                 tools:visibility="invisible">
 
                 <androidx.recyclerview.widget.RecyclerView

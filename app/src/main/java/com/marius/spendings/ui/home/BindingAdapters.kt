@@ -2,7 +2,9 @@ package com.marius.spendings.ui.home
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.animation.LayoutTransition
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import androidx.databinding.BindingAdapter
 
@@ -38,5 +40,22 @@ fun animateVisibilityChange(view: View, show: Boolean) {
                 }
             })
         }
+    }
+}
+
+/**
+ * Override for android:animateLayoutChanges to enable animations when a
+ * child View's content (eg. text, color) changes.
+ *
+ * @param viewGroup the target ViewGroup
+ * @param animate whether to enable or disable layout animations
+ */
+@BindingAdapter("animateLayoutChanges")
+fun animateLayoutChanges(viewGroup: ViewGroup, animate: Boolean) {
+    if (animate) {
+        viewGroup.layoutTransition = LayoutTransition()
+        viewGroup.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+    } else {
+        viewGroup.layoutTransition = null
     }
 }

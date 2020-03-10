@@ -1,6 +1,5 @@
 package com.marius.spendings.ui.home.fragments
 
-import android.animation.LayoutTransition
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -72,10 +71,6 @@ abstract class HomeTabFragment : Fragment() {
             lifecycleOwner = this@HomeTabFragment
             viewmodel = homeTabViewModel
             executePendingBindings()
-
-            // Enable transition animation for wrapping FrameLayouts
-            budgetListFrame.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-            budgetListFramePlaceholder.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         }
 
         homeTabViewModel.budgetItems.observe(viewLifecycleOwner, Observer { budgetItems ->
